@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const port = 4000
 var bodyParser = require('body-parser')
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../build')));
+app.use('/static', express.static(path.join(__dirname, 'build//static')));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -24,14 +27,15 @@ app.use(function (req, res, next) {
 const mongoose = require('mongoose');
 main().catch(err => console.log(err));
 async function main() {
-  await mongoose.connect('mongodb+srv://admin:admin@cluster0.8taek.mongodb.net/?retryWrites=true&w=majority');
+  await mongoose.connect('mongodb+srv://admin:admin@cluster0.8taek.mongodb.net/imagedb?retryWrites=true&w=majority');
   // use `await mongoose.connect('mongodb://user:password@localhost:27017/test');` if your database has auth enabled
 }
 
 const bookSchema = new mongoose.Schema({
   title: String,
   cover: String,
-  author: String
+  author: String,
+  image: String
 });
 
 const bookModel = mongoose.model('fdgdfgdfgdfg', bookSchema);
@@ -42,7 +46,8 @@ app.post('/api/books',(req,res)=>{
   bookModel.create({
     title: req.body.title,
     cover:req.body.cover,
-    author:req.body.author
+    author:req.body.author,
+    image:req.body.image
   })
   
   res.send('Data Recieved');
@@ -76,7 +81,10 @@ app.delete('/api/book/:id',(req, res)=>{
     res.send(data);
   })
 })
-
+// app.get('*', (req,res) =>{
+//   res.sendFile(path.join(__dirname+'/../build/index.html'));
+//   });
+  
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

@@ -9,12 +9,25 @@ export class Create extends React.Component {
         this.onChangeBookTitle = this.onChangeBookTitle.bind(this);
         this.onChangeBookCover = this.onChangeBookCover.bind(this);
         this.onChangeBookAuthor = this.onChangeBookAuthor.bind(this);
+        this.onChangeBookImage = this.onChangeBookImage.bind(this);
         
         this.state = {
             title:'',
             cover:'',
-            author:''
+            author:'',
+            image:''
         }
+    }
+
+    getBase64(file, cb) {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload =  () => {
+            cb(reader.result)
+        };
+        reader.onerror = (error) => {
+            console.log('Error: ', error);
+        };
     }
 
     handleSubmit(e){
@@ -22,12 +35,14 @@ export class Create extends React.Component {
         console.log(`Button clicked 
         ${this.state.title},
         ${this.state.cover},
-        ${this.state.author}`);
+        ${this.state.author},
+        ${this.state.image}`);
 
         const book ={
             title:this.state.title,
             cover:this.state.cover,
-            author:this.state.author
+            author:this.state.author,
+            image:this.state.image
         }
 
         axios.post('http://localhost:4000/api/books',book)
@@ -37,7 +52,8 @@ export class Create extends React.Component {
         this.setState({
             title:'',
             cover:'',
-            author:''
+            author:'',
+            image:''
         })
     }
 
@@ -55,6 +71,14 @@ export class Create extends React.Component {
         this.setState({
             author:e.target.value
         })
+    }
+
+    onChangeBookImage(e){
+        let files = e.target.files;
+
+         this.getBase64(files[0], (result) => {
+                this.state.image = result;
+              })
     }
 
     render() {
@@ -88,6 +112,18 @@ export class Create extends React.Component {
                             onChange={this.onChangeBookAuthor}
                         />
                     </div>
+
+                    <div className="form-group">
+                        <label>Add Image: </label>
+                        <input type="file"
+                            className="form-control"
+                            value={this.state.image}
+                            onChange={this.onChangeBookImage}
+                        />
+                    </div>
+
+                    
+
 
                     <input type="submit" value="Add Book" />
                 </form>
