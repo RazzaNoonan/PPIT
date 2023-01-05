@@ -1,20 +1,22 @@
 import React from "react";
 import axios from "axios";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 export class Create extends React.Component {
 
     constructor(){
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onChangeBookTitle = this.onChangeBookTitle.bind(this);
-        this.onChangeBookCover = this.onChangeBookCover.bind(this);
-        this.onChangeBookAuthor = this.onChangeBookAuthor.bind(this);
-        this.onChangeBookImage = this.onChangeBookImage.bind(this);
+        this.onChangeCarMake = this.onChangeCarMake.bind(this);
+        this.onChangeCarReg = this.onChangeCarReg.bind(this);
+        this.onChangeCarDescription = this.onChangeCarDescription.bind(this);
+        this.onChangeCarImage = this.onChangeCarImage.bind(this);
         
         this.state = {
-            title:'',
-            cover:'',
-            author:'',
+            make:'',
+            reg:'',
+            description:'',
             image:''
         }
     }
@@ -33,47 +35,49 @@ export class Create extends React.Component {
     handleSubmit(e){
         e.preventDefault();
         console.log(`Button clicked 
-        ${this.state.title},
-        ${this.state.cover},
-        ${this.state.author},
+        ${this.state.make},
+        ${this.state.reg},
+        ${this.state.description},
         ${this.state.image}`);
 
-        const book ={
-            title:this.state.title,
-            cover:this.state.cover,
-            author:this.state.author,
+        const car ={
+            make:this.state.make,
+            reg:this.state.reg,
+            description:this.state.description,
             image:this.state.image
         }
 
-        axios.post('http://localhost:4000/api/books',book)
+        axios.post('http://localhost:4000/api/cars',car)
         .then()
-        .catch();
+        .catch(
+            console.log("Error")
+        );
 
         this.setState({
-            title:'',
-            cover:'',
-            author:'',
+            make:'',
+            reg:'',
+            description:'',
             image:''
         })
     }
 
-    onChangeBookTitle(e){
+    onChangeCarMake(e){
         this.setState({
-            title:e.target.value
+            make:e.target.value
         })
     }
-    onChangeBookCover(e){
+    onChangeCarReg(e){
         this.setState({
-            cover:e.target.value
+            reg:e.target.value
         })
     }
-    onChangeBookAuthor(e){
+    onChangeCarDescription(e){
         this.setState({
-            author:e.target.value
+            description:e.target.value
         })
     }
 
-    onChangeBookImage(e){
+    onChangeCarImage(e){
         let files = e.target.files;
 
          this.getBase64(files[0], (result) => {
@@ -83,51 +87,99 @@ export class Create extends React.Component {
 
     render() {
         return (
-            <div>
-                <h3>Hello from Create Component!</h3>
-                <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label>Add Book Title: </label>
-                        <input type="text"
-                            className="form-control"
-                            value={this.state.title}
-                            onChange={this.onChangeBookTitle}
-                        />
-                    </div>
+            <div className="App" style={{ display: 'flex', margin: '30px', justifyContent: 'center', alignItems: 'center' }}>
+            {/*React Card*/}
+            <Card style={{width: '100%', lenght:'100%', backgroundColor: '#e47200' }} >
+                <Card.Body>
+                    <Card.Title>Adding a car</Card.Title>
+                    <form onSubmit={this.handleSubmit}>
 
-                    <div className="form-group">
-                        <label>Add Book Cover: </label>
-                        <input type="text"
-                            className="form-control"
-                            value={this.state.cover}
-                            onChange={this.onChangeBookCover}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Add Author: </label>
-                        <input type="text"
-                            className="form-control"
-                            value={this.state.author}
-                            onChange={this.onChangeBookAuthor}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Add Image: </label>
+                        <div className="form-group">
+                            <label>Type Car Model </label>
+                            <input type="text" 
+                            className="form-control" 
+                            value={this.state.make} 
+                            onChange={this.onChangeCarMake} 
+                            required />
+                        </div>
+                        <br></br>
+                        <div className="form-group">
+                            <label>Type Car Registration </label>
+                            <input type="text" 
+                            className="form-control" 
+                            value={this.state.reg} 
+                            onChange={this.onChangeCarReg} 
+                            required />
+                        </div>
+                        <br></br>
+                        <div className="form-group">
+                            <label>Type Car Description </label>
+                            <input type="text" 
+                            className="form-control" 
+                            value={this.state.description} 
+                            onChange={this.onChangeCarDescription} 
+                            required />
+                        </div>
+                        <br></br>
+                        <div className="form-group">
+                        <label>Type Image: </label>
                         <input type="file"
                             className="form-control"
                             value={this.state.image}
-                            onChange={this.onChangeBookImage}
-                        />
-                    </div>
+                            onChange={this.onChangeCarImage}
+                            />
+                        </div>
+                        <br></br>
+                        <Button type="submit" value="Submit" variant="danger">Add Car</Button>
+                    </form>
+                </Card.Body>
+            </Card>
+        </div>
+            // <div>
+            //     <h3>Hello from Create Component!</h3>
+            //     <form onSubmit={this.handleSubmit}>
+            //         <div className="form-group">
+            //             <label>Add Car model: </label>
+            //             <input type="text"
+            //                 className="form-control"
+            //                 value={this.state.make}
+            //                 onChange={this.onChangeCarMake}
+            //             />
+            //         </div>
+
+            //         <div className="form-group">
+            //             <label>Add Car Reg: </label>
+            //             <input type="text"
+            //                 className="form-control"
+            //                 value={this.state.reg}
+            //                 onChange={this.onChangeCarReg}
+            //             />
+            //         </div>
+
+            //         <div className="form-group">
+            //             <label>Add Desription: </label>
+            //             <input type="text"
+            //                 className="form-control"
+            //                 value={this.state.description}
+            //                 onChange={this.onChangeCarDescription}
+            //             />
+            //         </div>
+
+            //         <div className="form-group">
+            //             <label>Add Image: </label>
+            //             <input type="file"
+            //                 className="form-control"
+            //                 value={this.state.image}
+            //                 onChange={this.onChangeCarImage}
+            //             />
+            //         </div>
 
                     
 
 
-                    <input type="submit" value="Add Book" />
-                </form>
-            </div>
+            //         <input type="submit" value="Add Car" />
+            //     </form>
+            // </div>
         );
     }
 }

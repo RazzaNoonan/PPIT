@@ -31,53 +31,53 @@ async function main() {
   // use `await mongoose.connect('mongodb://user:password@localhost:27017/test');` if your database has auth enabled
 }
 
-const bookSchema = new mongoose.Schema({
-  title: String,
-  cover: String,
-  author: String,
+const carSchema = new mongoose.Schema({
+  make: String,
+  reg: String,
+  description: String,
   image: String
 });
 
-const bookModel = mongoose.model('fdgdfgdfgdfg', bookSchema);
+const carModel = mongoose.model('fdgdfgdfgdfg', carSchema);
 
-app.post('/api/books',(req,res)=>{
+app.post('/api/cars',(req,res)=>{
   console.log(req.body);
 
-  bookModel.create({
-    title: req.body.title,
-    cover:req.body.cover,
-    author:req.body.author,
+  carModel.create({
+    make: req.body.make,
+    reg:req.body.reg,
+    description:req.body.description,
     image:req.body.image
   })
   
   res.send('Data Recieved');
 })
 
-app.get('/api/books', (req, res) => {
-  bookModel.find((error, data)=>{
+app.get('/api/cars', (req, res) => {
+  carModel.find((error, data)=>{
     res.json(data);
   })
 })
 
-app.get('/api/book/:id', (req, res)=>{
+app.get('/api/car/:id', (req, res)=>{
   console.log(req.params.id);
-  bookModel.findById(req.params.id,(error,data)=>{
+  carModel.findById(req.params.id,(error,data)=>{
     res.json(data);
   })
 })
 
-app.put('/api/book/:id', (req, res)=>{
+app.put('/api/car/:id', (req, res)=>{
   console.log("Update: "+req.params.id);
 
-  bookModel.findByIdAndUpdate(req.params.id, req.body, {new:true},
+  carModel.findByIdAndUpdate(req.params.id, req.body, {new:true},
     (error,data)=>{
       res.send(data);
     })
 })
 
-app.delete('/api/book/:id',(req, res)=>{
+app.delete('/api/car/:id',(req, res)=>{
   console.log('Deleting: '+req.params.id);
-  bookModel.findByIdAndDelete({_id:req.params.id},(error,data)=>{
+  carModel.findByIdAndDelete({_id:req.params.id},(error,data)=>{
     res.send(data);
   })
 })

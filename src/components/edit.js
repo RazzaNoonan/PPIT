@@ -1,19 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Card from 'react-bootstrap/Card';
 
 export function Edit(){
     let {id} = useParams();
-    const [title, setTitle] = useState('');
-    const [cover, setCover] = useState('');
-    const [author, setAuthor] = useState('');
+    const [make, setMake] = useState('');
+    const [reg, setReg] = useState('');
+    const [description, setDescription] = useState('');
 
     useEffect(()=>{
-        axios.get('http://localhost:4000/api/book/'+id)
+        axios.get('http://localhost:4000/api/car/'+id)
         .then((response)=>{
-            setTitle(response.data.title);
-            setCover(response.data.cover);
-            setAuthor(response.data.author);
+            setMake(response.data.make);
+            setReg(response.data.reg);
+            setDescription(response.data.description);
         })
         .catch()
     },[]);
@@ -21,46 +22,47 @@ export function Edit(){
     const handleSubmit = (e)=>{
         e.preventDefault();
 
-        const editBook = {
-            title:title,
-            cover:cover,
-            author:author
+        const editCar = {
+            make:make,
+            reg:reg,
+            description:description
         }
 
-        axios.put('http://localhost:4000/api/book/'+id,editBook)
+        axios.put('http://localhost:4000/api/car/'+id,editCar)
         .then()
         .catch();
     }
 
     return(
         <div>
-            <h3>Edit component</h3>
+            <h3>Editing Car</h3>
             <form onSubmit={handleSubmit}>
             <div className="form-group">
-                        <label>Edit Book Title: </label>
+                        <label>Edit Car model: </label>
                         <input type="text"
                             className="form-control"
-                            value={title}
-                            onChange={(e)=>{setTitle(e.target.value)}}
+                            value={make}
+                            onChange={(e)=>{setMake(e.target.value)}}
                         />
                     </div>
                     <div className="form-group">
-                        <label>Edit Book Cover: </label>
+                        <label>Edit Car Reg: </label>
                         <input type="text"
                             className="form-control"
-                            value={cover}
-                            onChange={(e)=>{setCover(e.target.value)}}
+                            value={reg}
+                            onChange={(e)=>{setReg(e.target.value)}}
                         />
                     </div>
                     <div className="form-group">
-                        <label>Edit Book Author: </label>
+                        <label>Edit Car Description: </label>
                         <input type="text"
                             className="form-control"
-                            value={author}
-                            onChange={(e)=>{setAuthor(e.target.value)}}
+                            value={description}
+                            onChange={(e)=>{setDescription(e.target.value)}}
                         />
+                        
                     </div>
-                <input type="submit" value="Edit Book"></input>
+                <input type="submit" value="Edit Car"></input>
             </form>
         </div>
     );
