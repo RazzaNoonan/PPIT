@@ -1,5 +1,5 @@
 import React from "react";
-import { Cars } from "./cars";
+import { Alcohols } from "./alcohols";
 import axios from "axios";
 
 export class Read extends React.Component {
@@ -9,9 +9,9 @@ export class Read extends React.Component {
     }
    
     componentDidMount() {
-        axios.get('http://localhost:4000/api/cars')
+        axios.get('http://localhost:4000/api/alcohols')
             .then((response) => {
-                this.setState({ cars: response.data })
+                this.setState({ alcohols: response.data })
             })
             .catch((error) => {
                 console.log(error);
@@ -19,14 +19,14 @@ export class Read extends React.Component {
     }
 
     state = {
-        cars: []
+        alcohols: []
     }
 
     render() {
         return (
             <div>
-                <h3>Cars listed below!</h3>
-                <Cars cars={this.state.cars} Reload={this.componentDidMount}></Cars>
+                <h3>Alcohols listed below!</h3>
+                <Alcohols alcohols={this.state.alcohols} Reload={this.componentDidMount}></Alcohols>
             </div>
         );
     }

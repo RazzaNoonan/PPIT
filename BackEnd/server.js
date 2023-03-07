@@ -1,4 +1,5 @@
 const express = require('express')
+// const dotenv = require("dotenv").config();
 const app = express()
 const port = 4000
 var bodyParser = require('body-parser')
@@ -22,8 +23,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-//mongodb+srv://admin:<password>@cluster0.8taek.mongodb.net/?retryWrites=true&w=majority
-// getting-started.js
+
 const mongoose = require('mongoose');
 main().catch(err => console.log(err));
 async function main() {
@@ -31,21 +31,21 @@ async function main() {
   // use `await mongoose.connect('mongodb://user:password@localhost:27017/test');` if your database has auth enabled
 }
 
-const carSchema = new mongoose.Schema({
-  make: String,
-  reg: String,
+const alcoholSchema = new mongoose.Schema({
+  brand: String,
+  quantity: String,
   description: String,
   image: String
 });
 
-const carModel = mongoose.model('fdgdfgdfgdfg', carSchema);
+const alcoholModel = mongoose.model('fdgdfgdfgdfg', alcoholSchema);
 
-app.post('/api/cars',(req,res)=>{
+app.post('/api/alcohols',(req,res)=>{
   console.log(req.body);
 
-  carModel.create({
-    make: req.body.make,
-    reg:req.body.reg,
+  alcoholModel.create({
+    brand: req.body.brand,
+    quantity:req.body.quantity,
     description:req.body.description,
     image:req.body.image
   })
@@ -53,31 +53,31 @@ app.post('/api/cars',(req,res)=>{
   res.send('Data Recieved');
 })
 
-app.get('/api/cars', (req, res) => {
-  carModel.find((error, data)=>{
+app.get('/api/alcohols', (req, res) => {
+  alcoholModel.find((error, data)=>{
     res.json(data);
   })
 })
 
-app.get('/api/car/:id', (req, res)=>{
+app.get('/api/alcohol/:id', (req, res)=>{
   console.log(req.params.id);
-  carModel.findById(req.params.id,(error,data)=>{
+  alcoholModel.findById(req.params.id,(error,data)=>{
     res.json(data);
   })
 })
 
-app.put('/api/car/:id', (req, res)=>{
+app.put('/api/alcohol/:id', (req, res)=>{
   console.log("Update: "+req.params.id);
 
-  carModel.findByIdAndUpdate(req.params.id, req.body, {new:true},
+  alcoholModel.findByIdAndUpdate(req.params.id, req.body, {new:true},
     (error,data)=>{
       res.send(data);
     })
 })
 
-app.delete('/api/car/:id',(req, res)=>{
+app.delete('/api/alcohol/:id',(req, res)=>{
   console.log('Deleting: '+req.params.id);
-  carModel.findByIdAndDelete({_id:req.params.id},(error,data)=>{
+  alcoholModel.findByIdAndDelete({_id:req.params.id},(error,data)=>{
     res.send(data);
   })
 })

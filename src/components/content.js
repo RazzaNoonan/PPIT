@@ -13,9 +13,9 @@ export class Content extends React.Component {
                 src=""
                 alt="new"
                 />
-                <h3>Click here to view the Garage</h3>
+                <h3>Click here to look at Alcohol instock</h3>
                 <a href="/read">
-                <button>Garage</button>
+                <button>Drinks</button>
                 </a>
             </div>
         );

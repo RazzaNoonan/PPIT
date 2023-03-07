@@ -8,14 +8,14 @@ export class Create extends React.Component {
     constructor(){
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onChangeCarMake = this.onChangeCarMake.bind(this);
-        this.onChangeCarReg = this.onChangeCarReg.bind(this);
-        this.onChangeCarDescription = this.onChangeCarDescription.bind(this);
-        this.onChangeCarImage = this.onChangeCarImage.bind(this);
+        this.onChangeAlcoholBrand = this.onChangeAlcoholBrand.bind(this);
+        this.onChangeAlcoholQuantity = this.onChangeAlcoholQuantity.bind(this);
+        this.onChangeAlcoholDescription = this.onChangeAlcoholDescription.bind(this);
+        this.onChangeAlcoholImage = this.onChangeAlcoholImage.bind(this);
         
         this.state = {
-            make:'',
-            reg:'',
+            brand:'',
+            quantity:'',
             description:'',
             image:''
         }
@@ -35,49 +35,49 @@ export class Create extends React.Component {
     handleSubmit(e){
         e.preventDefault();
         console.log(`Button clicked 
-        ${this.state.make},
-        ${this.state.reg},
+        ${this.state.brand},
+        ${this.state.quantity},
         ${this.state.description},
         ${this.state.image}`);
 
-        const car ={
-            make:this.state.make,
-            reg:this.state.reg,
+        const alcohol ={
+            brand:this.state.brand,
+            quantity:this.state.quantity,
             description:this.state.description,
             image:this.state.image
         }
 
-        axios.post('http://localhost:4000/api/cars',car)
+        axios.post('http://localhost:4000/api/alcohols',alcohol)
         .then()
         .catch(
             console.log("Error")
         );
 
         this.setState({
-            make:'',
-            reg:'',
+            brand:'',
+            quantity:'',
             description:'',
             image:''
         })
     }
 
-    onChangeCarMake(e){
+    onChangeAlcoholBrand(e){
         this.setState({
-            make:e.target.value
+            brand:e.target.value
         })
     }
-    onChangeCarReg(e){
+    onChangeAlcoholQuantity(e){
         this.setState({
-            reg:e.target.value
+            quantity:e.target.value
         })
     }
-    onChangeCarDescription(e){
+    onChangeAlcoholDescription(e){
         this.setState({
             description:e.target.value
         })
     }
 
-    onChangeCarImage(e){
+    onChangeAlcoholImage(e){
         let files = e.target.files;
 
          this.getBase64(files[0], (result) => {
@@ -91,95 +91,51 @@ export class Create extends React.Component {
             {/*React Card*/}
             <Card style={{width: '100%', lenght:'100%', backgroundColor: '#e47200' }} >
                 <Card.Body>
-                    <Card.Title>Adding a car</Card.Title>
+                    <Card.Title>Adding a alcohol</Card.Title>
                     <form onSubmit={this.handleSubmit}>
 
                         <div className="form-group">
-                            <label>Type Car Model </label>
+                            <label>Type alcohol Brand </label>
                             <input type="text" 
                             className="form-control" 
-                            value={this.state.make} 
-                            onChange={this.onChangeCarMake} 
+                            value={this.state.brand} 
+                            onChange={this.onChangeAlcoholBrand} 
                             required />
                         </div>
                         <br></br>
                         <div className="form-group">
-                            <label>Type Car Registration </label>
+                            <label>Type Alcohol Quantity </label>
                             <input type="text" 
                             className="form-control" 
-                            value={this.state.reg} 
-                            onChange={this.onChangeCarReg} 
+                            value={this.state.quantity} 
+                            onChange={this.onChangeAlcoholQuantity} 
                             required />
                         </div>
                         <br></br>
                         <div className="form-group">
-                            <label>Type Car Description </label>
+                            <label>Type Alcohol Description </label>
                             <input type="text" 
                             className="form-control" 
                             value={this.state.description} 
-                            onChange={this.onChangeCarDescription} 
+                            onChange={this.onChangeAlcoholDescription} 
                             required />
                         </div>
                         <br></br>
                         <div className="form-group">
-                        <label>Type Image: </label>
+                        <label>Upload Image: </label>
                         <input type="file"
                             className="form-control"
                             value={this.state.image}
-                            onChange={this.onChangeCarImage}
+                            onChange={this.onChangeAlcoholImage}
                             />
                         </div>
                         <br></br>
-                        <Button type="submit" value="Submit" variant="danger">Add Car</Button>
+                        <Button type="submit" value="Submit" variant="danger">Add Alcohol</Button>
                     </form>
                 </Card.Body>
             </Card>
         </div>
-            // <div>
-            //     <h3>Hello from Create Component!</h3>
-            //     <form onSubmit={this.handleSubmit}>
-            //         <div className="form-group">
-            //             <label>Add Car model: </label>
-            //             <input type="text"
-            //                 className="form-control"
-            //                 value={this.state.make}
-            //                 onChange={this.onChangeCarMake}
-            //             />
-            //         </div>
-
-            //         <div className="form-group">
-            //             <label>Add Car Reg: </label>
-            //             <input type="text"
-            //                 className="form-control"
-            //                 value={this.state.reg}
-            //                 onChange={this.onChangeCarReg}
-            //             />
-            //         </div>
-
-            //         <div className="form-group">
-            //             <label>Add Desription: </label>
-            //             <input type="text"
-            //                 className="form-control"
-            //                 value={this.state.description}
-            //                 onChange={this.onChangeCarDescription}
-            //             />
-            //         </div>
-
-            //         <div className="form-group">
-            //             <label>Add Image: </label>
-            //             <input type="file"
-            //                 className="form-control"
-            //                 value={this.state.image}
-            //                 onChange={this.onChangeCarImage}
-            //             />
-            //         </div>
-
-                    
-
-
-            //         <input type="submit" value="Add Car" />
-            //     </form>
-            // </div>
+            
         );
     }
 }
