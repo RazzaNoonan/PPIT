@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
 const mongoose = require('mongoose');
 main().catch(err => console.log(err));
 async function main() {
-  await mongoose.connect('mongodb+srv://admin:admin@cluster0.8taek.mongodb.net/imagedb?retryWrites=true&w=majority');
+  await mongoose.connect('mongodb+srv://ronan1234:ronan1234@ronancluster.c12ol7d.mongodb.net/?retryWrites=true&w=majority');
   // use `await mongoose.connect('mongodb://user:password@localhost:27017/test');` if your database has auth enabled
 }
 
