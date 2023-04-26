@@ -51,7 +51,7 @@ app.post("/register", async (req, res) => {
       fname,
       lname,
       email,
-      password:encryption,
+      password,
     });
     res.send({ status: "ok" });
   } catch (error) {

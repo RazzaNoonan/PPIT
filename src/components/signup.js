@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { message } from "antd";
 import "../App.css"
 
 export class SignUp extends Component {
@@ -38,7 +39,14 @@ export class SignUp extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "userRegister")
+        console.log(data, "userRegister");
+
+        if(data.status === "ok"){
+          message.success('Sign up Successfull!');
+        }
+        else{
+          message.warning("There is already a user with these details. Try logging in.");
+        }
       });
   }
 
