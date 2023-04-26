@@ -29,6 +29,7 @@ export class AlcoholItem extends React.Component {
                                 {this.props.alcohol.description}
                             </footer>
                         </blockquote>
+                        <p>{this.props.alcohol.quantity}</p>
                     </Card.Body>
                     <Link to={'/edit/' + this.props.alcohol._id} className="btn btn-primary">Edit</Link>
                     <Button variant="danger" onClick={this.DeleteAlcohol}>Delete</Button>

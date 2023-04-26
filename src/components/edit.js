@@ -10,7 +10,7 @@ export function Edit(){
     const [description, setDescription] = useState('');
 
     useEffect(()=>{
-        axios.get('http://localhost:4000/api/alcohol/'+id)
+        axios.get('http://localhost:5007/api/alcohol/'+id)
         .then((response)=>{
             setBrand(response.data.brand);
             setQuantity(response.data.quantity);
