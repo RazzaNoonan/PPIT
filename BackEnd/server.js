@@ -1,35 +1,64 @@
-const express = require('express')
-// const dotenv = require("dotenv").config();
-const app = express()
-const port = 4000
-var bodyParser = require('body-parser')
+const express = require('express');
+const cors = require("cors");
+const app = express();
+app.use(cors());
+const mongoose = require("mongoose");
+app.use(express.json());
+const bodyParser = require('body-parser');
 const path = require('path');
+
+const port = 5007;
+
 app.use(express.static(path.join(__dirname, '../build')));
 app.use('/static', express.static(path.join(__dirname, 'build//static')));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-
-// parse application/json
-app.use(bodyParser.json())
-
-const cors = require('cors');
-app.use(cors());
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
+// const mongoUrl = 
+//   "mongodb+srv://ronan1234:ronan1234@ronancluster.37jfzh1.mongodb.net/?retryWrites=true&w=majority";
 
-const mongoose = require('mongoose');
+// mongoose
+//   .connect(mongoUrl, {
+//     useNewUrlParser: true,
+//   })
+//   .then(() => {
+//     console.log("Connected to database");
+//   })
+//   .catch((e) => console.log(e));
+
+
 main().catch(err => console.log(err));
 async function main() {
-  await mongoose.connect('mongodb+srv://ronan1234:ronan1234@ronancluster.c12ol7d.mongodb.net/?retryWrites=true&w=majority');
-  // use `await mongoose.connect('mongodb://user:password@localhost:27017/test');` if your database has auth enabled
+  await mongoose.connect('mongodb+srv://ronan1234:ronan1234@ronancluster.37jfzh1.mongodb.net/?retryWrites=true&w=majority');
 }
+
+require("./userDetails");
+const User = mongoose.model("UserInfo");
+
+//sign up functionality
+app.post("/register", async (req, res) => {
+  const { fname, lname, email, password } = req.body;
+  try {
+    //data that will be on database
+    await User.create({
+      fname,
+      lname,
+      email,
+      password:encryption,
+    });
+    res.send({ status: "ok" });
+  } catch (error) {
+    res.send({ status: "error" });
+  }
+});
+
 
 const alcoholSchema = new mongoose.Schema({
   brand: String,
@@ -38,7 +67,7 @@ const alcoholSchema = new mongoose.Schema({
   image: String
 });
 
-const alcoholModel = mongoose.model('fdgdfgdfgdfg', alcoholSchema);
+const alcoholModel = mongoose.model('Alcohol', alcoholSchema);
 
 app.post('/api/alcohols',(req,res)=>{
   console.log(req.body);
@@ -48,23 +77,23 @@ app.post('/api/alcohols',(req,res)=>{
     quantity:req.body.quantity,
     description:req.body.description,
     image:req.body.image
-  })
-  
-  res.send('Data Recieved');
-})
+  });
+
+  res.send('Data Received');
+});
 
 app.get('/api/alcohols', (req, res) => {
   alcoholModel.find((error, data)=>{
     res.json(data);
-  })
-})
+  });
+});
 
 app.get('/api/alcohol/:id', (req, res)=>{
   console.log(req.params.id);
   alcoholModel.findById(req.params.id,(error,data)=>{
     res.json(data);
-  })
-})
+  });
+});
 
 app.put('/api/alcohol/:id', (req, res)=>{
   console.log("Update: "+req.params.id);
@@ -72,8 +101,8 @@ app.put('/api/alcohol/:id', (req, res)=>{
   alcoholModel.findByIdAndUpdate(req.params.id, req.body, {new:true},
     (error,data)=>{
       res.send(data);
-    })
-})
+    });
+});
 
 app.delete('/api/alcohol/:id',(req, res)=>{
   console.log('Deleting: '+req.params.id);
@@ -81,9 +110,9 @@ app.delete('/api/alcohol/:id',(req, res)=>{
     res.send(data);
   })
 })
-// app.get('*', (req,res) =>{
-//   res.sendFile(path.join(__dirname+'/../build/index.html'));
-//   });
+app.get('*', (req,res) =>{
+  res.sendFile(path.join(__dirname+'/../build/index.html'));
+  });
   
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

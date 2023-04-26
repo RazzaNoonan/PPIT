@@ -9,7 +9,7 @@ export class Read extends React.Component {
     }
    
     componentDidMount() {
-        axios.get('http://localhost:4000/api/alcohols')
+        axios.get('http://localhost:5007/api/alcohols')
             .then((response) => {
                 this.setState({ alcohols: response.data })
             })

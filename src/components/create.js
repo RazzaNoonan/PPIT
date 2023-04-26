@@ -47,7 +47,7 @@ export class Create extends React.Component {
             image:this.state.image
         }
 
-        axios.post('http://localhost:4000/api/alcohols',alcohol)
+        axios.post('http://localhost:5007/api/alcohols',alcohol)
         .then()
         .catch(
             console.log("Error")

@@ -10,8 +10,7 @@ export class Content extends React.Component {
                 <br></br>
                 <br></br>
                 <img 
-                src=""
-                alt="new"
+                src="" alt="My Image"
                 />
                 <h3>Click here to look at Alcohol instock</h3>
                 <a href="/read">

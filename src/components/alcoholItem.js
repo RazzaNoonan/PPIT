@@ -12,7 +12,7 @@ export class AlcoholItem extends React.Component {
     DeleteAlcohol(e){
         e.preventDefault();
 
-        axios.delete('http://localhost:4000/api/alcohol/'+this.props.alcohol._id)
+        axios.delete('http://localhost:5007/api/alcohol/'+this.props.alcohol._id)
         .then((res)=>{this.props.Reload();})
         .catch();
     }

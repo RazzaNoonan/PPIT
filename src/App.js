@@ -5,8 +5,12 @@ import { Content } from './components/content';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import {Read} from './components/read';
+import { Read } from './components/read';
 import { Create } from './components/create';
+
+import { Login } from './components/login';
+import { SignUp } from './components/signup';
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -23,14 +27,19 @@ class App extends React.Component {
           <Container>
             <Navbar.Brand href="/">Navbar</Navbar.Brand>
             <Nav className="me-auto">
+            <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link href="/signup">Sign Up</Nav.Link>
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/read">alcohols</Nav.Link>
               <Nav.Link href="/create">Add</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
+        {/* using BrowserRouter to switch between components  */}
       <Routes>
         <Route path='/' element={<Content></Content>}></Route>
+        <Route path='login' element={<Login></Login>}></Route>
+        <Route path='signup' element={<SignUp></SignUp>}></Route>
         <Route path='/read' element={<Read></Read>}></Route>
         <Route path='/create' element={<Create></Create>}></Route>
         <Route path='/edit/:id' element={<Edit></Edit>}></Route>

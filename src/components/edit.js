@@ -28,7 +28,7 @@ export function Edit(){
             description:description
         }
 
-        axios.put('http://localhost:4000/api/alcohol/'+id,editAlcohol)
+        axios.put('http://localhost:5007/api/alcohol/'+id,editAlcohol)
         .then()
         .catch();
     }
