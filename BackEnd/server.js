@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 app.use(express.json());
 const bodyParser = require('body-parser');
 const path = require('path');
+const bcrypt = require("bcryptjs");
 
 const port = 5007;
 
@@ -45,13 +46,20 @@ const User = mongoose.model("UserInfo");
 //sign up functionality
 app.post("/register", async (req, res) => {
   const { fname, lname, email, password } = req.body;
+
+  const encryptedPassword  = await bcrypt.hash(password, 10);
   try {
+    const oldUser = await User.findOne({email})
+
+    if(oldUser){
+    return res.send({ error: "User Exits"});
+    }
     //data that will be on database
     await User.create({
       fname,
       lname,
       email,
-      password,
+      password: encryptedPassword,
     });
     res.send({ status: "ok" });
   } catch (error) {
