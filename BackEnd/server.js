@@ -8,6 +8,11 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const bcrypt = require("bcryptjs");
 
+
+const jwt = require("jsonwebtoken");
+
+const JWT_SECRET = "hvfvayh582342jfjijh834nfog55g[]egl.];23f'.3[4.[l4t[lpsodjwomwenv";
+
 const port = 5007;
 
 app.use(express.static(path.join(__dirname, '../build')));
@@ -65,6 +70,25 @@ app.post("/register", async (req, res) => {
   } catch (error) {
     res.send({ status: "error" });
   }
+});
+
+app.post("/login-user", async(req, res)=> {
+  const{ email, password} = req.body;
+
+  const user = await User.findOne({email });
+  if(!user){
+    return res.json({ error: "User not found"});
+  }
+  if(await bcrypt.compare(password, user.password)){
+    const token = jwt.sign({}, JWT_SECRET);
+
+    if(res.status(201)){
+      return res.json({status: "ok", data: token});
+    }else{
+      return res.json({error: "error"});
+    }
+  }
+  res.json({status: "error", error: "Invalid Password"});
 });
 
 
