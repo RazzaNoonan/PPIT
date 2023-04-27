@@ -89,7 +89,7 @@ export class Create extends React.Component {
         return (
             <div className="App" style={{ display: 'flex', margin: '30px', justifyContent: 'center', alignItems: 'center' }}>
             {/*React Card*/}
-            <Card style={{width: '100%', lenght:'100%', backgroundColor: '#e47200' }} >
+            <Card style={{width: '80%', lenght:'100%', backgroundColor: '#90ee90' }} >
                 <Card.Body>
                     <Card.Title>Adding a alcohol</Card.Title>
                     <form onSubmit={this.handleSubmit}>

@@ -75,10 +75,12 @@ app.post("/register", async (req, res) => {
 app.post("/login-user", async(req, res)=> {
   const{ email, password} = req.body;
 
+  // check if exits or not
   const user = await User.findOne({email });
   if(!user){
     return res.json({ error: "User not found"});
   }
+  // compare the password with user password
   if(await bcrypt.compare(password, user.password)){
     const token = jwt.sign({}, JWT_SECRET);
 

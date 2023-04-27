@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Card from 'react-bootstrap/Card';
 
 export function Edit(){
     let {id} = useParams();
@@ -9,15 +8,17 @@ export function Edit(){
     const [quantity, setQuantity] = useState('');
     const [description, setDescription] = useState('');
 
-    useEffect(()=>{
-        axios.get('http://localhost:5007/api/alcohol/'+id)
-        .then((response)=>{
+    useEffect(() => {
+        axios
+          .get("http://localhost:5007/api/alcohol/" + id)
+          .then((response) => {
             setBrand(response.data.brand);
             setQuantity(response.data.quantity);
             setDescription(response.data.description);
-        })
-        .catch()
-    },[]);
+          })
+          .catch();
+      }, [id]); // Add 'id' to the dependency array
+      
 
     const handleSubmit = (e)=>{
         e.preventDefault();

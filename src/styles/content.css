@@ -1,0 +1,24 @@
+body {
+    background-color: rgb(255, 255, 255);
+  }
+
+.time {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+
+.btn-purple {
+    background-color: #90ee90;
+    color: white;
+    border-color: #90ee90;
+  }
+  
+  .btn-purple:hover {
+    background-color: #028e02;
+    border-color: #028e02;
+  }
+  

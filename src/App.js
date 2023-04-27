@@ -23,27 +23,28 @@ class App extends React.Component {
     return (
       <Router>
       <div className="App">
-        <Navbar bg="dark" variant="dark">
-          <Container>
-            <Navbar.Brand href="/">Navbar</Navbar.Brand>
-            <Nav className="me-auto">
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Nav className="me-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/read">Inventory</Nav.Link>
+            <Nav.Link href="/create">Add</Nav.Link>
+          	</Nav>
+          <Nav className="justify-content-center">
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/signup">Sign Up</Nav.Link>
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/read">alcohols</Nav.Link>
-              <Nav.Link href="/create">Add</Nav.Link>
-            </Nav>
-          </Container>
-        </Navbar>
+          </Nav>
+        </Container>
+      </Navbar>
         {/* using BrowserRouter to switch between components  */}
-      <Routes>
-        <Route path='/' element={<Content></Content>}></Route>
-        <Route path='login' element={<Login></Login>}></Route>
-        <Route path='signup' element={<SignUp></SignUp>}></Route>
-        <Route path='/read' element={<Read></Read>}></Route>
-        <Route path='/create' element={<Create></Create>}></Route>
-        <Route path='/edit/:id' element={<Edit></Edit>}></Route>
-      </Routes>
+        <Routes>
+          <Route path='/' element={<Content></Content>}></Route>
+          <Route path='/login' element={<Login></Login>}></Route>
+          <Route path='/signup' element={<SignUp></SignUp>}></Route>
+          <Route path='/read' element={<Read></Read>}></Route>
+          <Route path='/create' element={<Create></Create>}></Route>
+          <Route path='/edit/:id' element={<Edit></Edit>}></Route>
+        </Routes>
         {/* <Header></Header>
         <Content></Content>
         <Footer></Footer> */}
