@@ -11,14 +11,23 @@ import { Create } from './components/create';
 import { Login } from './components/login';
 import { SignUp } from './components/signup';
 
+import { isAuthenticated } from './auth';
+
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom';
+
 import { Edit } from './components/edit';
 
 class App extends React.Component {
+
+  state = {
+    isAuthenticated: false
+  };
+
   render() {
     return (
       <Router>
@@ -44,6 +53,12 @@ class App extends React.Component {
           <Route path='/read' element={<Read></Read>}></Route>
           <Route path='/create' element={<Create></Create>}></Route>
           <Route path='/edit/:id' element={<Edit></Edit>}></Route>
+
+          {/* Redirect to the Login component if not authenticated
+          <Route path="/">
+            {isAuthenticated ? <Content /> : <Redirect to="/login" />}
+          </Route> */}
+
         </Routes>
         {/* <Header></Header>
         <Content></Content>

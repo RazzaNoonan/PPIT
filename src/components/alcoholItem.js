@@ -44,7 +44,7 @@ export class AlcoholItem extends React.Component {
                     <Card.Header>{this.props.alcohol.brand}</Card.Header>
                     <Card.Body>
                         <blockquote className="blockquote mb-0">
-                            <img src={this.props.alcohol.image}></img>
+                            <img src={this.props.alcohol.image} className="alcohol-img" />
                             <footer>
                                 {this.props.alcohol.description}
                             </footer>

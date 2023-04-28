@@ -20,3 +20,10 @@
     justify-content: center;
     margin-top: 10px;
 }
+
+.alcohol-img {
+    width: 10%; /* or any other fixed width you want the images to have */
+    height: auto; /* this maintains the aspect ratio of the image */
+  }
+
+
